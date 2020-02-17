@@ -1,0 +1,43 @@
+<app-bread-crumb [itens]="[{text: '/Lancamentos', link: '/lancamentos'}, {text: '/'+pageTitle}]">
+</app-bread-crumb>
+
+<app-page-header
+    page-title={{pageTitle}}
+    button-text="<< Voltar"
+    button-link="/lancamentos"
+    button-class="btn-light"
+></app-page-header>
+
+
+<form [formGroup]="form" (submit)="submitForm()">
+    
+    <div class="card">
+        <div class="card-header">
+            Informações sobre o lançamento
+        </div>
+        <div class="card-body">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-2 ui-lg-2">
+                    <label for="horaInicio">Hora Inicio</label>
+                    <p-calendar id="horaInicio" formControlName="horaInicio"  [timeOnly]="true"></p-calendar>
+                </div>                
+                <div class="ui-g-12 ui-md-3 ui-lg-3">
+                    <label for="placaInput">Veiculo</label>
+                    <p-autoComplete id="placaInput" [(ngModel)]="veiculo" [suggestions]="veiculos" (completeMethod)="filterVeiculo($event)" field="placa" [size]="30"
+                        (onBlur)="prencherCliente($event)" formControlName="placaInput" placeholder="Veiculo" [minLength]="1"></p-autoComplete>
+                </div>                                
+                <div class="ui-g-12 ui-md-5 ui-lg-5">
+                    <label for="cliente">Cliente</label>
+                    <input type="text" class="form-control" id="cliente" formControlName="cliente" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-server-error-messages [server-error-messages]="serverErrorMessages">
+
+    </app-server-error-messages>
+    <button [disabled]="submittingForm || form.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+        Salvar
+    </button>
+
+</form>

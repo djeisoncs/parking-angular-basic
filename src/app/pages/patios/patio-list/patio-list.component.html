@@ -1,0 +1,43 @@
+<app-bread-crumb [itens]="[{text: '/Patios'}]">
+</app-bread-crumb>
+
+<app-page-header
+    page-title="Patios"
+    button-text="+ Novo Patio"
+    button-link="new"
+    button-class="btn-success"
+></app-page-header>
+
+<p-table [value]="entidades">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>
+                <strong>Patio</strong>
+            </th>
+            <th>
+                <strong>Numero vagas</strong>
+            </th>
+            <th>
+                <strong>Valor por hora R$</strong>
+            </th>
+            <th>
+                <strong>Ação</strong>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-entidade>
+        <tr>
+            <td>{{entidade.descricao}}</td>
+            <td>{{entidade.numVagas}}</td>
+            <td>{{ formatarValor(entidade.valorHora)}}</td>
+            <td>
+                <button [routerLink]="[entidade.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">
+                    Editar
+                </button>
+                <button (click)="delete(entidade)" class="btn btn-outline-danger btn-sm ">
+                    Excluir
+                </button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

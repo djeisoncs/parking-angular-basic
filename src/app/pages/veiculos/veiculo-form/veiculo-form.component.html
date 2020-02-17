@@ -1,0 +1,45 @@
+<app-bread-crumb [itens]="[{text: '/Veiculos', link: '/veiculos'}, {text: '/'+pageTitle}]">
+</app-bread-crumb>
+
+<app-page-header
+    page-title={{pageTitle}}
+    button-text="<< Voltar"
+    button-link="/veiculos"
+    button-class="btn-light"
+></app-page-header>
+
+
+<form [formGroup]="form" (submit)="submitForm()">
+    
+    <div class="card">
+        <div class="card-header">
+            Informações sobre o veiculo
+        </div>
+        <div class="card-body">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-2 ui-lg-4">
+                    <label for="placa">Placa</label>
+                    <p-inputMask id="placa" mask="aaa-9999" formControlName="placa" placeholder="AAA-9999"></p-inputMask>
+                    <app-form-field-error [form-control]="form.get('placa')"></app-form-field-error>
+                </div>                               
+                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                    <label for="modelo">Modelo</label>
+                    <input type="text" class="form-control" id="modelo" formControlName="modelo" >
+                    <app-form-field-error [form-control]="form.get('modelo')"></app-form-field-error>
+                </div> 
+                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                    <label for="cor">Cor</label>
+                    <input type="text" class="form-control" id="cor" formControlName="cor" >
+                    <app-form-field-error [form-control]="form.get('cor')"></app-form-field-error>                    
+                </div> 
+            </div>            
+        </div>
+    </div>
+    <app-server-error-messages [server-error-messages]="serverErrorMessages">
+
+    </app-server-error-messages>
+    <button [disabled]="submittingForm || form.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
+        Salvar
+    </button>
+
+</form>

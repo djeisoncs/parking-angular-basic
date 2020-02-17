@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+    
+    <div class="card externa">
+        <div class="col-md">
+            <h1 class="h4 border-let pl-2 mt-3">
+                Selecionar Patio
+            </h1>
+        </div>        
+        <div class="form-row interna">
+            <div class="form-group col-12 full-width">
+                <label for="patioInput"><strong>Patio</strong></label>
+                <p-autoComplete id="patioInput" [(ngModel)]="patio" [suggestions]="patios" (completeMethod)="filterPatio($event)" field="descricao" [size]="30"
+                    class="full-width" formControlName="patioInput" placeholder="Patio" [minLength]="1"></p-autoComplete>
+            </div>
+            <div class="form-group col-12 full-width">
+                <button (click)="selecionar()" class="btn btn-primary btn-sm ">
+                    Selecionar
+                </button>
+                <button (click)="novo()" class="btn btn-success btn-sm ml-2">
+                    Novo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <app-server-error-messages [server-error-messages]="serverErrorMessages">
+    </app-server-error-messages>
+</form>

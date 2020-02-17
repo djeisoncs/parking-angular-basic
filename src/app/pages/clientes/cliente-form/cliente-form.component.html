@@ -1,0 +1,137 @@
+<app-bread-crumb [itens]="[{text: '/Clientes', link: '/clientes'}, {text: '/'+pageTitle}]">
+</app-bread-crumb>
+
+<app-page-header
+    page-title={{pageTitle}}
+    button-text="<< Voltar"
+    button-link="/clientes"
+    button-class="btn-light"
+></app-page-header>
+
+
+<form [formGroup]="form">
+    
+    <div class="card">
+        <div class="card-header">
+            Informações sobre o cliente
+        </div>
+        <div class="card-body">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-5 ui-lg-4">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" formControlName="nome" >
+                    <app-form-field-error [form-control]="form.get('nome')"></app-form-field-error>
+                </div>                
+                <div class="ui-g-12 ui-md-3 ui-lg-4">
+                    <label for="cpf">Cpf</label>
+                    <p-inputMask id="cpf" mask="999.999.999-99" formControlName="cpf" placeholder="999.999.999-99"></p-inputMask>
+                    <app-form-field-error [form-control]="form.get('cpf')"></app-form-field-error>
+                </div>                                
+                <div class="ui-g-12 ui-md-3 ui-lg-4">
+                    <label for="telefone">Telefone</label>
+                    <p-inputMask mask="(99) 9-9999-9999" formControlName="telefone" placeholder="(99) 9-9999-9999"></p-inputMask>
+                </div>                
+                <div class="ui-g-12 ui-md-2 ui-lg-4">
+                    <label for="placa">Placa</label>
+                    <p-inputMask id="placa" mask="aaa-9999" formControlName="placa" placeholder="AAA-9999"></p-inputMask>
+                    <app-form-field-error [form-control]="form.get('placa')"></app-form-field-error>
+                </div>                               
+                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                    <label for="modelo">Modelo</label>
+                    <input type="text" class="form-control" id="modelo" formControlName="modelo" >
+                    <app-form-field-error [form-control]="form.get('modelo')"></app-form-field-error>
+                </div> 
+                <div class="ui-g-12 ui-md-4 ui-lg-4">
+                    <label for="cor">Cor</label>
+                    <input type="text" class="form-control" id="cor" formControlName="cor" >
+                    <app-form-field-error [form-control]="form.get('cor')"></app-form-field-error>                    
+                </div>                               
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <button (click)="adcionarVeiculo()" class="btn btn-primary btn-sm float-right">
+                        Adcionar Veiculo
+                    </button>
+                </div>  
+            </div>
+            <div *ngIf="veiculos.length > 0" class="card">
+                <div class="card-header">
+                    Veiculos
+                </div>
+                <div class="card-body">
+                    <p-table [value]="veiculos">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>
+                                    <strong>Placa</strong>
+                                </th>
+                                <th>
+                                    <strong>Modelo</strong>
+                                </th>
+                                <th>
+                                    <strong>Cor</strong>
+                                </th>
+                                <th>
+                                    <strong>Ação</strong>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-veiculo>
+                            <tr>
+                                <td>
+                                    <span *ngIf="!isSelected(veiculo)">
+                                        {{veiculo.placa}}
+                                    </span>
+                                    <span *ngIf="isSelected(veiculo)">
+                                        <p-inputMask mask="aaa-9999" formControlName="placa_grid" placeholder="AAA-9999"></p-inputMask>
+                                        <app-form-field-error [form-control]="form.get('placa_grid')"></app-form-field-error>                                    
+                                    </span>
+                                </td>
+                                <td>
+                                    <span *ngIf="!isSelected(veiculo)">
+                                        {{veiculo.modelo}}
+                                    </span>
+                                    <span *ngIf="isSelected(veiculo)">
+                                        <input type="text" class="form-control" formControlName="modelo_grid" >
+                                        <app-form-field-error [form-control]="form.get('modelo_grid')"></app-form-field-error>                                        
+                                    </span>
+                                </td>
+                                <td>
+                                    <span *ngIf="!isSelected(veiculo)">
+                                        {{veiculo.cor}}
+                                    </span>
+                                    <span *ngIf="isSelected(veiculo)">
+                                        <input type="text" class="form-control" formControlName="cor_grid" >
+                                        <app-form-field-error [form-control]="form.get('cor_grid')"></app-form-field-error>                                        
+                                    </span>
+                                </td>
+                                <td>
+                                    <span *ngIf="!isSelected(veiculo)">
+                                        <button (click)="selecionar(veiculo)" class="btn btn-outline-success btn-sm mr-2">
+                                            Selecionar
+                                        </button>
+                                        <button (click)="excluir(veiculo)" class="btn btn-outline-danger btn-sm ">
+                                            Excluir
+                                        </button>
+                                    </span>
+                                    <span *ngIf="isSelected(veiculo)">
+                                        <button (click)="editarVeiculo(veiculo)" class="btn btn-outline-success btn-sm mr-2">
+                                            salvar
+                                        </button>
+                                        <button (click)="cancelar()" class="btn btn-outline-danger btn-sm ">
+                                            Cancelar
+                                        </button>                         
+                                    </span>           
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-server-error-messages [server-error-messages]="serverErrorMessages">
+    </app-server-error-messages>
+    <button [disabled]="submittingForm || form.invalid" (click)="submitForm()" class="btn btn-primary btn-lg float-right mt-3">
+        Salvar
+    </button>
+
+</form>

@@ -1,0 +1,43 @@
+<app-bread-crumb [itens]="[{text: '/Lançamentos'}]">
+</app-bread-crumb>
+
+<app-page-header
+    page-title="Lançamentos"
+    button-text="+ Novo Lançamento"
+    button-link="new"
+    button-class="btn-success"
+></app-page-header>
+
+<p-table  [value]="entidades">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>
+                <strong>Horario Entrada</strong>
+            </th>
+            <th>
+                <strong>Veiculo</strong>
+            </th>
+            <th>
+                <strong>Total</strong>
+            </th>
+            <th>
+                <strong>Ação</strong>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-entidade>
+        <tr>
+            <td>{{getHoraFormatada(entidade.dataCadastro)}}</td>
+            <td>{{entidade.veiculo.placa}}</td>
+            <td>{{getValorTotal(entidade)}}</td>
+            <td>
+                <button (click)="finalizar(entidade)" class="btn btn-outline-success btn-sm mr-2">
+                    Finalizar
+                </button>
+                <button (click)="cancelar(entidade)" class="btn btn-outline-danger btn-sm ">
+                    Cancelar
+                </button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

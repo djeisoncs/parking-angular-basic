@@ -1,0 +1,39 @@
+<app-page-header
+    page-title=""
+    button-text="+ Novo Lançamento"
+    button-link="/lancamentos/new"
+    button-class="btn-info"
+></app-page-header>
+
+<div class="card-deck mt-5 mb-5">
+    <div class="card text-center text-white bg-info">        
+        <div class="card-header">
+            TOTAL DE VAGAS
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">
+                {{dashboard.vagasTotal}}
+            </h3>
+        </div>
+    </div>
+    <div class="card text-center text-white bg-danger">        
+        <div class="card-header">
+            VAGAS OCUPADAS
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">
+                {{dashboard.vagasUsadas}}
+            </h3>
+        </div>
+    </div>              
+    <div class="card text-center text-white bg-success">        
+        <div class="card-header">
+            VAGAS LIVRES
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">
+                {{dashboard.vagasLivres}}
+            </h3>
+        </div>
+    </div>    
+</div>
